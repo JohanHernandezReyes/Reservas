@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>INDEX</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content=""/>
+        <base href="/"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="188334025761-q0shvert4kqnb2u76tg5do7uodfp8r5n.apps.googleusercontent.com">
+    </head>
+    <body>
+        <br>
+        <hr>
+        <h1 align="center" font><b>Bienvenido a la App MisionTIC2022-Cabin </b></h1>
+        <hr>
+        <div class="container unauthenticated">
+            INICIAR SESIÓN CON GOOGLE:
+            <br>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <script>
+                function onSignIn(googleUser) {
+                    var profile = googleUser.getBasicProfile();
+                    console.log('ID: ' + profile.getId());
+                    console.log('Name: ' + profile.getName());
+                    console.log('Image URL: ' + profile.getImageUrl());
+                    console.log('Email: ' + profile.getEmail());
+                    var id_token = googleUser.getAuthResponse().id_token;
+                    console.log(id_token);
+                    Username(googleUser);
+                }
+            </script> 
+            <hr>
+        </div>
+
+        <div class="container authenticated" style="display:none">
+            Se ha autenticado como:<span id="user"></span>
+            <br>
+            <a href="#" onclick="signOut();">Sign out</a>
+            <script>
+                function signOut() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                        $(".authenticated").hide();
+                        $(".unauthenticated").show();
+                    });
+                }
+            </script>
+            <hr>
+        </div>
+    </body>
+
+    <script>
+        function Username(googleUser) {
+            var Name = googleUser.getBasicProfile().getName();
+            var Email = googleUser.getBasicProfile().getEmail();
+            $("#user").html(Name+" ("+Email+")");
+            $(".unauthenticated").hide();
+            $(".authenticated").show();
+        }
+    </script>
+
+</html>
+
