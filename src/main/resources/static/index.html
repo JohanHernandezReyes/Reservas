@@ -10,16 +10,17 @@
         <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script type="text/javascript" src="js/Funciones.js"></script>
         <meta name="google-signin-client_id" content="188334025761-q0shvert4kqnb2u76tg5do7uodfp8r5n.apps.googleusercontent.com">
     </head>
     <body>
         <br>
         <hr>
-        <h1 align="center" font><b>Bienvenido a la App MisionTIC2022-Cabin </b></h1>
+        <h1 align="center"><b>Bienvenido a la App MisionTIC2022-Cabin </b></h1>
         <hr>
         <div class="container unauthenticated">
-            INICIAR SESIÓN CON GOOGLE:
-            <br>
+            <b>INICIAR SESIÓN COMO ADMINISTRADOR CON GOOGLE:</b>
+            <br><br>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <script>
                 function onSignIn(googleUser) {
@@ -31,38 +32,49 @@
                     var id_token = googleUser.getAuthResponse().id_token;
                     console.log(id_token);
                     Username(googleUser);
+                    guardarUsuarioSignIn(googleUser);
                 }
             </script> 
+            <hr><br>
+            <p><b>O INGRESE COMO CLIENTE:</b></p>
+            <p><a href=cabin.html>Consulta de las cabañas</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+            <a href=client.html>Registrese como cliente</a><br><br></p> 
+            <p><a href=message.html>Dejenos sus comentarios</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+            <a href=reservation.html>Realice o califique su reservación</a><br></p>  
             <hr>
         </div>
-
-        <div class="container authenticated" style="display:none">
-            Se ha autenticado como:<span id="user"></span>
+        <input type="text" id="Uemail" hidden="true">
+        <div id="1" class="container authenticated" style="display:none">  
+            Se ha autenticado como:<span id="useremail"></span><br>
+            Bienvenido: <span id="user"></span>
             <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#" onclick="signOut();">Sign out</a>
             <script>
                 function signOut() {
+                    e=$("#Uemail").val();
+                    console.log(e)
+                    LogOut(e);
                     var auth2 = gapi.auth2.getAuthInstance();
                     auth2.signOut().then(function () {
                         console.log('User signed out.');
                         $(".authenticated").hide();
                         $(".unauthenticated").show();
                     });
+                    
                 }
             </script>
             <hr>
+            <h1 align="center"><u><b>Administración de Cabañas</b></u></h1>
+            <h2 align="left">Seleccione el módulo a gestionar:</h2>
+            <a href=cabin.html>Gestión de las cabañas</a><br><br>
+            <a href=category.html>Gestión de categorias</a><br><br>  
+            <a href=client.html>Gestión de los clientes</a><br><br>
+            <a href=message.html>Gestión de mensajes</a><br><br>
+            <a href=reservation.html>Gestión de reservaciones</a><br><br>
+            <a href=admin.html>Gestión de Usuarios</a><br>  
         </div>
     </body>
-
-    <script>
-        function Username(googleUser) {
-            var Name = googleUser.getBasicProfile().getName();
-            var Email = googleUser.getBasicProfile().getEmail();
-            $("#user").html(Name+" ("+Email+")");
-            $(".unauthenticated").hide();
-            $(".authenticated").show();
-        }
-    </script>
-
 </html>
 

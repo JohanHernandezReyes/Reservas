@@ -45,6 +45,7 @@ public class UsersServices {
                     UserX.get().setNameuser(U.getNameuser());
                     UserX.get().setEmail(U.getEmail());
                     UserX.get().setPassword(U.getPassword());
+                    UserX.get().setAuthenticated(U.getAuthenticated());
                 }
                 return UsersRepository.GuardarUsuario(UserX.get());
             }
