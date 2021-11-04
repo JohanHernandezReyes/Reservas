@@ -1155,6 +1155,7 @@ function ModificarReserva(idElemento){
         datatype: "JSON",
         success: function (respuestaid) {
             Reserva1 = respuestaid;
+            $("#idreserva").val(Reserva1.idReservation);
             $("#FI").val(Reserva1.startDate);
             $("#FF").val(Reserva1.devolutionDate);
             $("#status").val(Reserva1.status).selected;
@@ -1202,11 +1203,12 @@ function EditarReserva() {
     var FI = new Date($("#FI").val()).toISOString().slice(0, 10);
     var FF = new Date($("#FF").val()).toISOString().slice(0, 10);
     let myData = {
+        idReservation: $("#idreserva").val(),
         startDate: FI,
         devolutionDate: FF,
-        cabin: { id: $("#cabin_msg").val() },
-        client: { idClient: $("#client_msg").val() },
         status: $("#status").val(),
+        cabin: { id: $("#cabin_msg").val() },
+        client: { idClient: $("#client_msg").val() }, 
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
@@ -1341,7 +1343,7 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
+                botoneditar.onclick="ModifScore("+Score1.reservation.idReservation+")";
                 botoneditar.className="bacc";
                 celda3.appendChild(botoneditar);
                 celda3.className = "container aut";
@@ -1365,7 +1367,7 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
+                botoneditar.onclick="ModifScore("+Score1.reservation.idReservation+")";
                 botoneditar.className="bacc";
                 newcell3.appendChild(botoneditar);
                 newcell3.className = "container aut";
