@@ -760,7 +760,7 @@ function borrarMsg(idElemento){
         contentType:"application/JSON",
         datatype:"JSON",
         success:function(respuesta){
-            $("##resultMsg").empty();
+            $("#resultMsg").empty();
             ConsultarMsg();
             alert("Se ha Eliminado.")
         }
