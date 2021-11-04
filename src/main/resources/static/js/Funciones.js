@@ -1155,10 +1155,8 @@ function ModificarReserva(idElemento){
         datatype: "JSON",
         success: function (respuestaid) {
             Reserva1 = respuestaid;
-            var FI = new Date(Reserva1.startDate).toISOString().slice(0, 10);
-            var FF = new Date(Reserva1.devolutionDate).toISOString().slice(0, 10);
-            $("#FI").val(FI);
-            $("#FF").val(FF);
+            $("#FI").val(Reserva1.startDate);
+            $("#FF").val(Reserva1.devolutionDate);
             $("#status").val(Reserva1.status).selected;
             $("#cabin_msg").val(Reserva1.cabin.id);
             $("#client_msg").val(Reserva1.client.idClient);
@@ -1189,7 +1187,7 @@ function guardarReserva() {
             $("#resultReserv").empty();
             $("#FI").val("");
             $("#FF").val(""),
-                console.log(respuesta);
+            console.log(respuesta);
             ConsultarReserva();
             OcultarFormReserva();
             alert("se ha creado su reservación")
@@ -1201,9 +1199,11 @@ function EditarReserva() {
     validarvacio($("#FI").val(), "Por favor seleccione una fecha inicial para su reserva");
     validarvacio($("#FF").val(), "Por favor seleccione una fecha final para su reserva");
     validarvacio($("#status").val(), "Indique el status de la reserva");
+    var FI = new Date($("#FI").val()).toISOString().slice(0, 10);
+    var FF = new Date($("#FF").val()).toISOString().slice(0, 10);
     let myData = {
-        startDate: $("#FI").val(),
-        devolutionDate: $("#FF").val(),
+        startDate: FI,
+        devolutionDate: FF,
         cabin: { id: $("#cabin_msg").val() },
         client: { idClient: $("#client_msg").val() },
         status: $("#status").val(),
@@ -1341,7 +1341,7 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore('+Score1.reservation.idReservation+')";
+                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
                 botoneditar.className="bacc";
                 celda3.appendChild(botoneditar);
                 celda3.className = "container aut";
@@ -1365,7 +1365,7 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore('+Score1.reservation.idReservation+')";
+                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
                 botoneditar.className="bacc";
                 newcell3.appendChild(botoneditar);
                 newcell3.className = "container aut";
