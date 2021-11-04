@@ -17,10 +17,10 @@ public class Reservation implements Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idReservation;
      
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
     
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date devolutionDate;
     
     @Column(name="status")
