@@ -101,7 +101,6 @@ function Consultar1Cabin(idElemento) {
             $("#resultado").empty();
             $("#detalle").empty();
             DetalleCabin(data)
-            globalThis;
             Verificarlogin();
             OcultarForm();
         }
@@ -532,7 +531,6 @@ function editarClient(){
     });
 }
 
-
 function borrarClient(idElemento){
     let myData = idElemento;
     $.ajax({
@@ -544,13 +542,11 @@ function borrarClient(idElemento){
         success:function(respuesta){
             $("#resultClient").empty();
             $("#detalleClient").empty();
-            ConsultarCabin();
+            ConsultarClient();
             alert("Se ha Eliminado.")
         }
     });
 }
-
-
 
 function ListaClientes() {
     $.ajax({
@@ -582,6 +578,7 @@ function ConsultarMsg() {
             rta_message = respuesta;
             globalThis;
             mostrarMsg(respuesta.items);
+            Verificarlogin();
             document.getElementById("labcabinmsg").setAttribute("hidden", "true");
             document.getElementById("labclientmsg").setAttribute("hidden", "true");
             document.getElementById("cabin_msg").setAttribute("hidden", "true");
@@ -604,6 +601,7 @@ else{
     thead += "<th>" + "MENSAJE" + "</th>"
     thead += "<th>" + "CLIENTE" + "</th>"
     thead += "<th>" + "CABAÑA" + "</th>"
+    thead += "<th class='container aut'>" + "BORRAR" + "</th>"
     thead += "</tr>";
     thead += "<thead>";
     myTable += thead;
@@ -612,6 +610,7 @@ else{
         myTable += "<td align=center>" + rta_message[i].messageText + "</td>";
         myTable += "<td align=center>" + rta_message[i].client.name + "</td>";
         myTable += "<td align=center>" + rta_message[i].cabin.name + "</td>";
+        myTable+="<td class='container aut'> <button class='bacc' onclick='borrarMsg("+rta_message[i].idMessage+")'>Borrar</button>"
         myTable += "</tr>";
     }
     myTable += "</table>";
@@ -748,11 +747,25 @@ function ConsultarClientMsg(idElemento, i) {
                 newcell.appendChild(a);
                 newcell.style.textAlign = "center";
             }
-
         }
     });
 }
 
+function borrarMsg(idElemento){
+    let myData = idElemento;
+    $.ajax({
+        url:"http://129.151.117.220:9000/api/Message/"+myData,
+        type:"DELETE",
+        data:myData,
+        contentType:"application/JSON",
+        datatype:"JSON",
+        success:function(respuesta){
+            $("##resultMsg").empty();
+            ConsultarMsg();
+            alert("Se ha Eliminado.")
+        }
+    });
+}
 
 //4.FUNCIONES PARA LA TABLA CATEGORY
 function ListaCategorias() {
@@ -861,7 +874,6 @@ function CrearCategoria() {
 
         }
     });
-
 }
 
 function AgregarCategoria() {
@@ -903,8 +915,7 @@ function ModificarCategoria(idElemento){
             $("#nameCateg").val(Category1.name);
             $("#descCateg").val(Category1.description);
         }
-    }); 
-   
+    });  
 }
 
 function OcultarFormCategoria() {
@@ -915,8 +926,7 @@ function OcultarFormCategoria() {
     document.getElementById("nameCateg").setAttribute("hidden", "true");
     document.getElementById("descCateg").setAttribute("hidden", "true");
     document.getElementById("BGCateg").setAttribute("hidden", "true");
-    document.getElementById("BECateg").setAttribute("hidden", "true");
-    
+    document.getElementById("BECateg").setAttribute("hidden", "true");   
 }
 
 function guardarCategoria() {
@@ -1045,9 +1055,6 @@ else{
 }
 }
 
-
-
-
 //5.FUNCIONES PARA LA TABLA RESERVATION
 function ConsultarReserva() {
     $.ajax({
@@ -1060,6 +1067,7 @@ function ConsultarReserva() {
             rta_reservation = respuesta;
             globalThis;
             mostrarReserva(respuesta.items);
+            Verificarlogin();
             OcultarFormReserva();
         }
     });
@@ -1079,7 +1087,7 @@ else{
     thead += "<th>" + "CLIENTE" + "</th>"
     thead += "<th>" + "EMAIL-CLIENTE" + "</th>"
     thead += "<th>" + "CABAÑA" + "</th>"
-    thead += "<th>" + "CALIFICACIONES" + "</th>"
+    thead += "<th>" + "ACCIONES" + "</th>"
     thead += "</tr>";
     thead += "<thead>";
     myTable += thead;
@@ -1093,9 +1101,13 @@ else{
         myTable += "<td align=center>" + rta_reservation[i].client.email + "</td>";
         myTable += "<td align=center>" + rta_reservation[i].cabin.name + "</td>";
         if (rta_reservation[i].score == null) {
-            myTable += "<td align=center> <button class='bacc2' onclick='CalificarReserva(" + rta_reservation[i].idReservation + ")'>Calificar Reserva</button>";
+            myTable += "<td align=center> <button class='bacc2' onclick='CalificarReserva(" + rta_reservation[i].idReservation + ")'>Calificar Reserva</button>"+
+            "<button class='bacc2 container aut' onclick='BorrarReserva(" + rta_reservation[i].idReservation + ")'>Eliminar Reserva</button>"+
+            "<button class='bacc2 container aut' onclick='ModificarReserva(" + rta_reservation[i].idReservation + ")'>Modificar Reserva</button>";
         } else {
-            myTable += "<td align=center> <button class='bacc' onclick='MostrarScore(" + rta_reservation[i].score.id + ")'>Ver Calificación</button>";
+            myTable += "<td align=center> <button class='bacc' onclick='MostrarScore(" + rta_reservation[i].score.id + ")'>Ver Calificación</button>"+
+            "<button class='bacc2 container aut' onclick='BorrarReserva(" + rta_reservation[i].idReservation + ")'>Eliminar Reserva</button>"+
+            "<button class='bacc2 container aut' onclick='ModificarReserva(" + rta_reservation[i].idReservation + ")'>Modificar Reserva</button>";
         }
         myTable += "</tr>";
     }
@@ -1121,21 +1133,46 @@ function AgregarReserva() {
     document.getElementById("FI").removeAttribute("hidden");
     document.getElementById("FF").removeAttribute("hidden");
     document.getElementById("BGR").removeAttribute("hidden");
+    document.getElementById("BER").setAttribute("hidden", "true");
 }
 
+function ModificarReserva(idElemento){
+    $("#resultReserv").empty();
+    document.getElementById("labFI").removeAttribute("hidden");
+    document.getElementById("labFF").removeAttribute("hidden");
+    document.getElementById("FI").removeAttribute("hidden");
+    document.getElementById("FF").removeAttribute("hidden");
+    document.getElementById("BER").removeAttribute("hidden");
+    document.getElementById("BGR").setAttribute("hidden", "true");
+    
+    let myData = idElemento;
+    console.log(idElemento);
+    $.ajax({
+        url: "http://129.151.117.220:9000/api/Reservation/" + myData,
+        type: "GET",
+        data: myData,
+        contentType: "application/JSON",
+        datatype: "JSON",
+        success: function (respuestaid) {
+            Reserva1 = respuestaid;
+            $("#FI").val(Reserva1.startDate);
+            $("#FF").val(Reserva1.devolutionDate);
+            $("#status").val(Reserva1.status).selected;
+        }
+    });  
+}
 
 function guardarReserva() {
     validarvacio($("#cabin_msg").val(), "Debe seleccionar una cabaña");
     validarvacio($("#client_msg").val(), "Debe seleccionar un cliente");
     validarvacio($("#FI").val(), "Por favor seleccione una fecha inicial para su reserva");
     validarvacio($("#FF").val(), "Por favor seleccione una fecha final para su reserva");
-
-    ConsultarReserva();
     let myData = {
         startDate: $("#FI").val(),
         devolutionDate: $("#FF").val(),
         cabin: { id: $("#cabin_msg").val() },
         client: { idClient: $("#client_msg").val() },
+        status: "Programada",
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
@@ -1156,6 +1193,36 @@ function guardarReserva() {
     });
 }
 
+function EditarReserva() {
+    validarvacio($("#FI").val(), "Por favor seleccione una fecha inicial para su reserva");
+    validarvacio($("#FF").val(), "Por favor seleccione una fecha final para su reserva");
+    validarvacio($("#status").val(), "Indique el status de la reserva");
+    let myData = {
+        startDate: $("#FI").val(),
+        devolutionDate: $("#FF").val(),
+        cabin: { id: $("#cabin_msg").val() },
+        client: { idClient: $("#client_msg").val() },
+        status: $("#status").val(),
+    };
+    let dataToSend = JSON.stringify(myData);
+    $.ajax({
+        url: "http://129.151.117.220:9000/api/Reservation/update",
+        type: "PUT",
+        contentType: "application/JSON",
+        data: dataToSend,
+        datatype: "JSON",
+        success: function (respuesta) {
+            $("#resultReserv").empty();
+            $("#FI").val("");
+            $("#FF").val(""),
+            console.log(respuesta);
+            ConsultarReserva();
+            OcultarFormReserva();
+            alert("se ha actualizado la reservación")
+        }
+    });
+}
+
 function OcultarFormReserva() {
     document.getElementById("labcabinreserv").setAttribute("hidden", "true");
     document.getElementById("labclientreserv").setAttribute("hidden", "true");
@@ -1166,10 +1233,27 @@ function OcultarFormReserva() {
     document.getElementById("FI").setAttribute("hidden", "true");
     document.getElementById("FF").setAttribute("hidden", "true");
     document.getElementById("BGR").setAttribute("hidden", "true");
+    document.getElementById("BER").setAttribute("hidden", "true");
     document.getElementById("labscore").setAttribute("hidden", "true");
     document.getElementById("scores").setAttribute("hidden", "true");
     document.getElementById("msgscore").setAttribute("hidden", "true");
     document.getElementById("BGScore").setAttribute("hidden", "true");
+}
+
+function BorrarReserva(idElemento){
+    let myData = idElemento;
+    $.ajax({
+        url:"http://129.151.117.220:9000/api/Reservation/"+myData,
+        type:"DELETE",
+        data:myData,
+        contentType:"application/JSON",
+        datatype:"JSON",
+        success:function(respuesta){
+            $("#resultReserv").empty();
+            ConsultarReserva();
+            alert("Se ha Eliminado la reserva")
+        }
+    });
 }
 
 function CalificarReserva(idReservation) {
@@ -1179,11 +1263,14 @@ function CalificarReserva(idReservation) {
     document.getElementById("labscore").removeAttribute("hidden");
     document.getElementById("scores").removeAttribute("hidden");
     document.getElementById("msgscore").removeAttribute("hidden"); $("#msgscore").val("");
-    document.getElementById("BGScore").removeAttribute("hidden"); $("#BGScore").val("");
+    document.getElementById("BGScore").removeAttribute("hidden");
+    document.getElementById("BEScore").setAttribute("hidden", "true");
 }
 
+//6.FUNCIONES PARA LA TABLA SCORE
 function GuardarScore() {
     validarvacio($("#scores").val(), "Elija una calificación para esta reserva");
+    validarvacio($("#msgscore").val(), "Por favor incluya un comentario sobre la calificación");
     let myData = {
         score: parseInt($("#scores").val()),
         mensajecalif: $("#msgscore").val(),
@@ -1233,18 +1320,30 @@ function MostrarScore(idScore) {
                 var columna2 = document.createElement("th");
                 var title2 = document.createTextNode("Comentarios");
                 columna2.appendChild(title2);
+                var columna3 = document.createElement("th");
+                var title3 = document.createTextNode("Modificar");
+                columna3.appendChild(title3);
                 tablahead.append(columna1);
                 tablahead.append(columna2);
+                tablahead.append(columna3);
+                columna3.className = "container aut";
                 var celda1 = document.createElement("td");
                 celda1.appendChild(Score);
                 celda1.style.textAlign = "center";
                 var celda2 = document.createElement("td");
                 celda2.appendChild(msgSc);
                 celda2.style.textAlign = "center";
+                var celda3 = document.createElement("td");
+                const botoneditar = document.createElement("button");
+                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
+                celda3.appendChild(botoneditar);
+                celda3.className = "container aut";
                 x = document.getElementById("filareserva");
-                x.appendChild(celda1); x.appendChild(celda2);
+                x.appendChild(celda1); x.appendChild(celda2); x.appendChild(celda3);
+                Verificarlogin();
             }
-            else if (tabla.rows[registro].cells.length == 8) {
+            else if (tabla.rows[registro].cells.length >= 8) {
+                Verificarlogin();
                 throw 'exit';
             }
             else {
@@ -1255,15 +1354,69 @@ function MostrarScore(idScore) {
                 var newcell2 = numfila.insertCell(7);
                 newcell2.appendChild(msgSc);
                 newcell2.style.textAlign = "center";
+                var newcell3 = numfila.insertCell(8);
+                const botoneditar = document.createElement("button");
+                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
+                newcell3.appendChild(botoneditar);
+                newcell3.className = "container aut";
+                Verificarlogin();
             }
-
-            OcultarFormClient();
+            OcultarFormReserva();
         }
     });
 }
 
-//FUNCIONES PARA LA TABLA ADMIN (USERS)
+function ModifScore(idReservation){
+    $("#idreserva").val(idReservation);
+    $("#resultReserv").empty();
+    document.getElementById("score").removeAttribute("hidden");
+    document.getElementById("labscore").removeAttribute("hidden");
+    document.getElementById("scores").removeAttribute("hidden");
+    document.getElementById("msgscore").removeAttribute("hidden"); $("#msgscore").val("");
+    document.getElementById("BEScore").removeAttribute("hidden");
+    document.getElementById("BGScore").setAttribute("hidden", "true"); 
+    
+    let myData = idElemento;
+    console.log(idElemento);
+    $.ajax({
+        url: "http://129.151.117.220:9000/api/Score/" + myData,
+        type: "GET",
+        data: myData,
+        contentType: "application/JSON",
+        datatype: "JSON",
+        success: function (respuestaid) {
+            Score1 = respuestaid;
+            $("#idscore").val(Score1.id);
+            $("#msgscore").val(Score1.mensajecalif);
+            $("#scores").val(Score1.score).selected;
+        }
+    });  
+}
 
+function EditarScore() {
+    validarvacio($("#scores").val(), "Elija una calificación para esta reserva");
+    validarvacio($("#msgscore").val(), "Por favor incluya un comentario sobre la calificación");
+    let myData = {
+        id: $("#idscore").val(),
+        score: parseInt($("#scores").val()),
+        mensajecalif: $("#msgscore").val(),
+        reservation: { idReservation: parseInt($("#idreserva").val()) },
+    };
+    let dataToSend = JSON.stringify(myData);
+    $.ajax({
+        url: "http://129.151.117.220:9000/api/Score/update",
+        type: "PUT",
+        contentType: "application/JSON",
+        data: dataToSend,
+        datatype: "JSON",
+        success: function (respuesta) {
+            $("#resultReserv").empty();
+            console.log(respuesta);
+            alert("se ha actualizado la calificación de la reserva N° "+$("#idreserva").val());
+        }
+    });
+}
+//7.FUNCIONES PARA LA TABLA ADMIN (USERS)
 function guardarUsuarioSignIn(user) {
     $.ajax({
         url: "http://129.151.117.220:9000/api/Admin/all",
@@ -1325,7 +1478,6 @@ function guardarUsuarioSignIn(user) {
         }
     });
 }
-
 
 function LogOut(useremail) {
     let emailx = useremail;

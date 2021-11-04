@@ -20,10 +20,12 @@
         </div>
         <div class="container unauthenticated">
             <p>Usuario no autenticado</p>
+            <h2 align="center">Haga su reservacion</h2>
         </div>
         <div class="container aut" style="display:none">
             Se ha autenticado como:<span id="useremail"></span><br>
-            <h2 align="center">Haga su reservacion</h2>
+            <h2 align="center">Gestión de las reservaciones</h2>
+        </div>        
             <button onclick="ConsultarReserva()">Consultar Reservas</button>
             <br>
             <br>
@@ -32,6 +34,7 @@
             <br>
             <div id="score" hidden="true">
                 <input id="idreserva" type="number" hidden="true"></input>
+                <input id="idscore" type="number" hidden="true"></input>
                 <p id="labscore" hidden="true">CALIFICACIÓN:<select id="scores" hidden="true">
                     <option value="">Puntuación</option>
                     <option value=1>1</option>
@@ -42,6 +45,7 @@
                 </select></p>    
                 <textarea id="msgscore" hidden="true" cols="80" rows="5" style="resize: both;"  placeholder="Escribe tu Mensaje"></textarea><br>
                 <button id ="BGScore" onclick="GuardarScore()" hidden="true">Guardar Calificación</button>
+                <button id ="BEScore" onclick="EditarScore()" hidden="true">Actualizar Calificación</button>
             </div> 
             <br>
             <br>
@@ -55,8 +59,15 @@
                     <a href=client.html target="_blank"><button id ="NewClientR" class="bacc" hidden="true">Crear Cliente</button></a></p>
                 <p id="labFI" hidden="true">FECHA INICIAL:<input type="date" id="FI" placeholder="DD-MM-YYYY" hidden="true"></p>
                 <p id="labFF" hidden="true">FECHA ENTREGA:<input type="date" id="FF" placeholder="DD-MM-YYYY" hidden="true"></p>
+                <p id="labstatus" hidden="true">STATUS:<select id="status" hidden="true">
+                    <option value=" ">Seleccione una cabaña</option>
+                    <option value="Programada">Programada</option>
+                    <option value="Cancelada">Cancelada</option>
+                    <option value="Realizada">Realizada</option>
+                </select>
                 <br>
                 <button id="BGR" hidden="true"onclick="guardarReserva()">Guardar</button>
+                <button id="BER" hidden="true"onclick="EditarReserva()">Actualizar</button>
             </div>
 
             <br>

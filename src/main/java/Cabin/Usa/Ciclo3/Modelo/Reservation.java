@@ -24,7 +24,7 @@ public class Reservation implements Serializable{
     private Date devolutionDate;
     
     @Column(name="status")
-    private String status="created";
+    private String status;
     
     @ManyToOne
     @JoinColumn(name="cabin")
