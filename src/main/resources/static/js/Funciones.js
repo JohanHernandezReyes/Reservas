@@ -1334,6 +1334,8 @@ function MostrarScore(idScore) {
                 celda2.style.textAlign = "center";
                 var celda3 = document.createElement("td");
                 const botoneditar = document.createElement("button");
+                const textoboton=document.createTextNode("Modificar Calificación");
+                botoneditar.appendChild(textoboton);
                 botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
                 celda3.appendChild(botoneditar);
                 celda3.className = "container aut";
@@ -1355,6 +1357,8 @@ function MostrarScore(idScore) {
                 newcell2.style.textAlign = "center";
                 var newcell3 = numfila.insertCell(8);
                 const botoneditar = document.createElement("button");
+                const textoboton=document.createTextNode("Modificar Calificación");
+                botoneditar.appendChild(textoboton);
                 botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
                 newcell3.appendChild(botoneditar);
                 newcell3.className = "container aut";
