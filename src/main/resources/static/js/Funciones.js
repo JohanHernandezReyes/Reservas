@@ -1141,6 +1141,7 @@ function ModificarReserva(idElemento){
     document.getElementById("labFF").removeAttribute("hidden");
     document.getElementById("FI").removeAttribute("hidden");
     document.getElementById("FF").removeAttribute("hidden");
+    document.getElementById("status").removeAttribute("hidden");
     document.getElementById("BER").removeAttribute("hidden");
     document.getElementById("BGR").setAttribute("hidden", "true");
     
@@ -1154,8 +1155,10 @@ function ModificarReserva(idElemento){
         datatype: "JSON",
         success: function (respuestaid) {
             Reserva1 = respuestaid;
-            $("#FI").val(Date(Reserva1.startDate.toISOString().slice(0, 10)));
-            $("#FF").val(Date(Reserva1.devolutionDate.toISOString().slice(0, 10)));
+            var FI = new Date(Reserva1.startDate).toISOString().slice(0, 10);
+            var FF = new Date(Reserva1.devolutionDate).toISOString().slice(0, 10);
+            $("#FI").val(FI);
+            $("#FF").val(FF);
             $("#status").val(Reserva1.status).selected;
             $("#cabin_msg").val(Reserva1.cabin.id);
             $("#client_msg").val(Reserva1.client.idClient);
