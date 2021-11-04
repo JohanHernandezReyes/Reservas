@@ -1157,6 +1157,8 @@ function ModificarReserva(idElemento){
             $("#FI").val(Reserva1.startDate);
             $("#FF").val(Reserva1.devolutionDate);
             $("#status").val(Reserva1.status).selected;
+            $("#cabin_msg").val(Reserva1.cabin.id);
+            $("#client_msg").val(Reserva1.client.idClient);
         }
     });  
 }
