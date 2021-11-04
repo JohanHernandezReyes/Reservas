@@ -1141,6 +1141,7 @@ function ModificarReserva(idElemento){
     document.getElementById("labFF").removeAttribute("hidden");
     document.getElementById("FI").removeAttribute("hidden");
     document.getElementById("FF").removeAttribute("hidden");
+    document.getElementById("labstatus").removeAttribute("hidden");
     document.getElementById("status").removeAttribute("hidden");
     document.getElementById("BER").removeAttribute("hidden");
     document.getElementById("BGR").setAttribute("hidden", "true");
