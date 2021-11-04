@@ -1154,8 +1154,8 @@ function ModificarReserva(idElemento){
         datatype: "JSON",
         success: function (respuestaid) {
             Reserva1 = respuestaid;
-            $("#FI").val(Reserva1.startDate);
-            $("#FF").val(Reserva1.devolutionDate);
+            $("#FI").val(Date(Reserva1.startDate.toISOString().slice(0, 10)));
+            $("#FF").val(Date(Reserva1.devolutionDate.toISOString().slice(0, 10)));
             $("#status").val(Reserva1.status).selected;
             $("#cabin_msg").val(Reserva1.cabin.id);
             $("#client_msg").val(Reserva1.client.idClient);
