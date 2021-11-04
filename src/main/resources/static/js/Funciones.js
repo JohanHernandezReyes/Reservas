@@ -1336,7 +1336,8 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
+                botoneditar.onclick="ModifScore("+Score1.reservation.idReservation+")";
+                botoneditar.className="bacc";
                 celda3.appendChild(botoneditar);
                 celda3.className = "container aut";
                 x = document.getElementById("filareserva");
@@ -1359,7 +1360,8 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore(Score1.reservation.idReservation)";
+                botoneditar.onclick="ModifScore("+Score1.reservation.idReservation+")";
+                botoneditar.className="bacc";
                 newcell3.appendChild(botoneditar);
                 newcell3.className = "container aut";
                 Verificarlogin();
