@@ -1060,7 +1060,7 @@ function ConsultarReserva() {
         url: "http://129.151.117.220:9000/api/Reservation/all",
         type: "GET",
         datatype: "JSON",
-        success: function r(respuesta) {
+        success: function (respuesta) {
             $("#resultReserv").empty();
             console.log(respuesta);
             rta_reservation = respuesta;
@@ -1587,7 +1587,7 @@ else{
         myTable += "<td align=center>" + rta_user[i].email + "</td>";
         myTable += "<td align=center>" + rta_user[i].password + "</td>";
         myTable += "<td align=center>" + rta_user[i].authenticated + "</td>";
-        myTable += "<td> <button class='bacc' onclick='ModifUsuario(" + rta_user[i].id + ")'>Editar</button>"+
+        myTable += "<td align=center> <button class='bacc' onclick='ModifUsuario(" + rta_user[i].id + ")'>Editar</button>"+
                     "<button class='bacc container aut' onclick='borrarUsuario("+rta_user[i].id+")'>Borrar</button>";
         myTable += "</tr>";
     }
@@ -1637,8 +1637,9 @@ function ModifUsuario(idElemento){
             User1 = respuestaid;
             $("#idU").val(User1.id);
             document.getElementById("idU").setAttribute("disabled", "disabled");
-            $("#nameU").val(User1.name);
+            $("#nameU").val(User1.nameuser);
             $("#emailU").val(User1.email);
+            document.getElementById("emailU").setAttribute("disabled", "disabled");
             $("#passwordU").val(User1.password);
         }
     });
