@@ -1,6 +1,6 @@
 package Cabin.Usa.Ciclo3.Controlador;
 
-import Cabin.Usa.Ciclo3.Modelo.Reservation;
+import Cabin.Usa.Ciclo3.Modelo.*;
 import Cabin.Usa.Ciclo3.Servicios.ReservationServices;
 import java.util.List;
 import java.util.Optional;
@@ -42,5 +42,26 @@ public class ControladorReservations {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean BorrarReservacion(@PathVariable("id") int id){
         return ReservationServices.EliminarReservacion(id);
+    }
+    
+    /*Informes Reto5*/
+    @GetMapping("/report-completed")
+    public List<Reservation> ReporteStatusCompleted(){
+        return ReservationServices.ReporteStatus("completed");
+    }
+    
+    @GetMapping("/report-cancelled")
+    public List<Reservation> ReporteStatusCancelled(){
+        return ReservationServices.ReporteStatus("cancelled");
+    }
+    
+    @GetMapping("/report-clients")
+    public List<Object[]>VerTopClientes(){
+        return ReservationServices.VerTopClientes();
+    }
+    
+    @GetMapping("/report-dates/{Fecha1}/{Fecha2}")
+    public List<Reservation>ReservacionesEntreFechas(@PathVariable("Fecha1")String Dia1, @PathVariable("Fecha2")String Dia2){
+        return ReservationServices.ReservacionesEntreFechas(Dia1, Dia2);
     }
 }

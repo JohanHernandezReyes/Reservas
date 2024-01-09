@@ -1,6 +1,8 @@
 package Cabin.Usa.Ciclo3.Repositorio;
 
-import Cabin.Usa.Ciclo3.Modelo.Reservation;
+import Cabin.Usa.Ciclo3.Modelo.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,19 @@ public class ReservationRepository {
    
     public void EliminarReservacion(int id){
         ReservationCRUD.deleteById(id);
+    }
+    
+    public List<Reservation>VerReservacionesByStatus(String Status){
+        return ReservationCRUD.findAllByStatus(Status);
+    }
+    
+    public List<Reservation>VerReservacionesEntreFechas(Date Fecha1,Date Fecha2){
+        return ReservationCRUD.findAllByStartDateAfterAndStartDateBefore(Fecha1, Fecha2);
+    }
+    
+    public List<Object[]>VerTopClientes(){
+        List<Object[]> reporte=ReservationCRUD.countTotalReservationByCliente();
+            
+        return reporte;
     }
 }

@@ -1,7 +1,11 @@
 package Cabin.Usa.Ciclo3.Servicios;
 
-import Cabin.Usa.Ciclo3.Modelo.Reservation;
+import Cabin.Usa.Ciclo3.Modelo.*;
 import Cabin.Usa.Ciclo3.Repositorio.ReservationRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +64,31 @@ public class ReservationServices {
         }
         return false;  
     }   
+    
+   public List<Object[]>VerTopClientes(){
+        return ReservationRepository.VerTopClientes();
+    }
+    
+    public List<Reservation> ReporteStatus(String status){
+        List<Reservation> reporte=ReservationRepository.VerReservacionesByStatus(status);
+        return reporte;
+    }
+    
+    public List<Reservation>ReservacionesEntreFechas(String Dia1, String Dia2){
+        SimpleDateFormat parser=new SimpleDateFormat("yyyy-MM-dd");
+        Date Fecha1=new Date();
+        Date Fecha2=new Date();
+        try{
+            Fecha1=parser.parse(Dia1);
+            Fecha2=parser.parse(Dia2);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        
+        if(Fecha1.before(Fecha2)){
+            return ReservationRepository.VerReservacionesEntreFechas(Fecha1, Fecha2);
+        }else{
+            return new ArrayList<>();
+        }
+    }    
 }
