@@ -8,7 +8,7 @@ import lombok.Data;
 
 
 @Entity
-@Table(name="client")
+@Table(name="cliente")
 @Data
 public class Cliente implements Serializable{
 
