@@ -14,13 +14,13 @@ public class Categoria implements Serializable{
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idcategoria;
     @Column(length = 45)
     private String name;
     @Column(length = 250)
     private String description;
     
-    @OneToMany(cascade={CascadeType.PERSIST}, mappedBy="category")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="category")
     @JsonIgnoreProperties("category")
     public List<Cabin> cabins;
         

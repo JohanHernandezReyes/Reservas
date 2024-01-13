@@ -22,10 +22,10 @@ public class CategoryServices {
     }
     
     public Categoria GuardarCategoria(Categoria C){
-        if (C.getId()==null){
+        if (C.getIdcategoria()==null){
             return CategoryRepository.GuardarCategoria(C);
         }else{
-            Optional<Categoria> CategoryX=CategoryRepository.BuscarCategoria(C.getId());
+            Optional<Categoria> CategoryX=CategoryRepository.BuscarCategoria(C.getIdcategoria());
             if(!CategoryX.isPresent()){
                 return CategoryRepository.GuardarCategoria(C);
             } else {
@@ -35,8 +35,8 @@ public class CategoryServices {
     }
     
     public Categoria ActualizarCategoria(Categoria C){
-        if (C.getId()!=null){
-            Optional<Categoria> CategoriaX=CategoryRepository.BuscarCategoria(C.getId());
+        if (C.getIdcategoria()!=null){
+            Optional<Categoria> CategoriaX=CategoryRepository.BuscarCategoria(C.getIdcategoria());
             if (CategoriaX.isPresent()){
                 if(C.getDescription()!=null && C.getName()!=null){
                     CategoriaX.get().setDescription(C.getDescription());

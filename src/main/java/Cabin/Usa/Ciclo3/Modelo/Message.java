@@ -13,18 +13,18 @@ public class Message implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_message;
+    private Integer idmessage;
     
     @Column(length = 250)
-    private String message_text;
+    private String messagetext;
     
     @ManyToOne
-    @JoinColumn(name="cabin")
+    @JoinColumn(name="id")
     @JsonIgnoreProperties({"messages", "reservations"})
     private Cabin cabin; 
     
     @ManyToOne
-    @JoinColumn(name="client")
+    @JoinColumn(name="idclient")
     @JsonIgnoreProperties({"messages", "reservations"})
     private Cliente client;
     

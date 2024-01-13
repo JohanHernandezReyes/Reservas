@@ -1,7 +1,6 @@
 package Cabin.Usa.Ciclo3.Repositorio;
 
 import Cabin.Usa.Ciclo3.Modelo.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class ReservationRepository {
     }
     
     public List<Reservation>VerReservacionesEntreFechas(Date Fecha1,Date Fecha2){
-        return ReservationCRUD.findAllByStartDateAfterAndStartDateBefore(Fecha1, Fecha2);
+        return ReservationCRUD.findAllByStartdateAfterAndStartdateBefore(Fecha1, Fecha2);
     }
     
     public List<Object[]>VerTopClientes(){

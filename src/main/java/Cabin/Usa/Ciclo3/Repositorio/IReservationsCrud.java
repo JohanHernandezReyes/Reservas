@@ -9,7 +9,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface IReservationsCrud extends CrudRepository<Reservation, Integer>{
     
-    public List<Reservation>findAllByStartDateAfterAndStartDateBefore(Date Fecha1,Date Fecha2);
+    public List<Reservation>findAllByStartdateAfterAndStartdateBefore(Date Fecha1,Date Fecha2);
+    
     
     public List<Reservation>findAllByStatus(String Status);
     

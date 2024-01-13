@@ -29,10 +29,10 @@ public class ReservationServices {
     
 
     public Reservation GuardarReservacion(Reservation R){
-        if (R.getId_reservation()==null){
+        if (R.getIdreservation()==null){
             return ReservationRepository.GuardarReservacion(R);
         }else{
-            Optional<Reservation> ReservationX=ReservationRepository.BuscarReservacion(R.getId_reservation());
+            Optional<Reservation> ReservationX=ReservationRepository.BuscarReservacion(R.getIdreservation());
             if(!ReservationX.isPresent()){
                 return ReservationRepository.GuardarReservacion(R);
             } else {
@@ -42,12 +42,12 @@ public class ReservationServices {
     }  
     
     public Reservation ActualizarReservacion(Reservation R){
-        if (R.getId_reservation()!=null){
-            Optional<Reservation> ReservationX=ReservationRepository.BuscarReservacion(R.getId_reservation());
+        if (R.getIdreservation()!=null){
+            Optional<Reservation> ReservationX=ReservationRepository.BuscarReservacion(R.getIdreservation());
             if (ReservationX.isPresent()){
-                if(R.getStart_date()!=null && R.getDevolution_date()!=null && R.getStatus()!=null){
-                    ReservationX.get().setStart_date(R.getStart_date());
-                    ReservationX.get().setDevolution_date(R.getDevolution_date());
+                if(R.getStartdate()!=null && R.getDevolutiondate()!=null && R.getStatus()!=null){
+                    ReservationX.get().setStartdate(R.getStartdate());
+                    ReservationX.get().setDevolutiondate(R.getDevolutiondate());
                     ReservationX.get().setStatus(R.getStatus());
                 }
                 return ReservationRepository.GuardarReservacion(ReservationX.get());
