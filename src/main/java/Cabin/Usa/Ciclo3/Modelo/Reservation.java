@@ -3,25 +3,24 @@ package Cabin.Usa.Ciclo3.Modelo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 
 
 @Entity
-@Table(name="Reservation")
+@Table(name="reservation")
 @Data
 public class Reservation implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer idReservation;
+    private Integer id_reservation;
      
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date startDate;
+    private Date start_date;
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date devolutionDate;
+    private Date devolution_date;
     
     @Column(name="status")
     private String status;

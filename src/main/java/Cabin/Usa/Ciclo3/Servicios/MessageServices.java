@@ -25,10 +25,10 @@ public class MessageServices {
     
 
     public Message GuardarMensaje(Message M){
-        if (M.getIdMessage()==null){
+        if (M.getId_message()==null){
             return MessageRepository.GuardarMensaje(M);
         }else{
-            Optional<Message> MessageX=MessageRepository.BuscarMensaje(M.getIdMessage());
+            Optional<Message> MessageX=MessageRepository.BuscarMensaje(M.getId_message());
             if(!MessageX.isPresent()){
                 return MessageRepository.GuardarMensaje(M);
             } else {
@@ -38,11 +38,11 @@ public class MessageServices {
     }
     
     public Message ActualizarMensaje(Message M){
-        if (M.getIdMessage()!=null){
-            Optional<Message> MessageX=MessageRepository.BuscarMensaje(M.getIdMessage());
+        if (M.getId_message()!=null){
+            Optional<Message> MessageX=MessageRepository.BuscarMensaje(M.getId_message());
             if (MessageX.isPresent()){
-                if(M.getMessageText()!=null){
-                    MessageX.get().setMessageText(M.getMessageText());
+                if(M.getMessage_text()!=null){
+                    MessageX.get().setMessage_text(M.getMessage_text());
                 }
                 return MessageRepository.GuardarMensaje(MessageX.get());
             }

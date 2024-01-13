@@ -14,7 +14,7 @@ public class Cliente implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer idClient;
+    private Integer id_client;
     
     @Column(length = 45)
     private String email;

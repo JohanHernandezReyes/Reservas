@@ -13,10 +13,10 @@ public class Message implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer idMessage;
+    private Integer id_message;
     
     @Column(length = 250)
-    private String messageText;
+    private String message_text;
     
     @ManyToOne
     @JoinColumn(name="cabin")

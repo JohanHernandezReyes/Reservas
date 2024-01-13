@@ -341,10 +341,10 @@ else{
     myTable += thead;
     for (i = 0; i < rta_client.length; i++) {
         myTable += "<tr>";
-        myTable += "<td align=center>" + rta_client[i].idClient + "</td>";
+        myTable += "<td align=center>" + rta_client[i].id_client + "</td>";
         myTable += "<td align=center>" + rta_client[i].name + "</td>";
-        myTable += "<td> <button class='bacc' onclick='Consultar1Client(" + rta_client[i].idClient + ")'>Ver Detalles</button>"+
-                    "<button class='bacc container aut' onclick='borrarClient("+rta_client[i].idClient+")'>Borrar</button>";
+        myTable += "<td> <button class='bacc' onclick='Consultar1Client(" + rta_client[i].id_client + ")'>Ver Detalles</button>"+
+                    "<button class='bacc container aut' onclick='borrarClient("+rta_client[i].id_client+")'>Borrar</button>";
         myTable += "</tr>";
     }
     myTable += "</table>";
@@ -366,7 +366,7 @@ function Consultar1Client(idElemento) {
             Client1 = respuestaid;
             globalThis;
             let dataClient = {
-                idClient: Client1.idClient,
+                id_client: Client1.id_client,
                 name: Client1.name,
                 email: Client1.email,
                 age: Client1.age,
@@ -397,7 +397,7 @@ function DetalleClient(dataClient) {
     thead += "<thead>";
     myTableD += thead;
     myTableD += "<tr>";
-        myTableD += "<td align=center>" + dataClient.idClient + "</td>";
+        myTableD += "<td align=center>" + dataClient.id_client + "</td>";
         myTableD += "<td align=center>" + dataClient.name + "</td>";
         myTableD += "<td align=center>" + dataClient.email + "</td>";
         myTableD += "<td align=center>" + dataClient.age + "</td>";
@@ -434,7 +434,7 @@ function ModifClient(){
     $("#detalleClient").empty();
     mostrarlabelsC();
     document.getElementById("idC").removeAttribute("hidden");
-    $("#idC").val(Client1.idClient);
+    $("#idC").val(Client1.id_client);
     document.getElementById("idC").setAttribute("disabled", "true");
     document.getElementById("nameC").removeAttribute("hidden");
     $("#nameC").val(Client1.name);
@@ -503,7 +503,7 @@ function editarClient(){
     validarvacio($("#passwordC").val(), "Debe ingresar una contraseña");
 
     let myData={
-        idClient:$("#idC").val(),
+        id_client:$("#idC").val(),
         name:$("#nameC").val(),
         email:$("#email").val(),
         age:$("#age").val(),
@@ -560,7 +560,7 @@ function ListaClientes() {
             console.log(respuesta);
             const $listcli = $("#client_msg");
             for (i = 0; i < respuesta.length; i++) {
-                $listcli.append($("<option>", { value: respuesta[i].idClient, text: respuesta[i].name }))
+                $listcli.append($("<option>", { value: respuesta[i].id_client, text: respuesta[i].name }))
             }
         }
     });
@@ -607,10 +607,10 @@ else{
     myTable += thead;
     for (i = 0; i < rta_message.length; i++) {
         myTable += "<tr>";
-        myTable += "<td align=center>" + rta_message[i].messageText + "</td>";
+        myTable += "<td align=center>" + rta_message[i].message_text + "</td>";
         myTable += "<td align=center>" + rta_message[i].client.name + "</td>";
         myTable += "<td align=center>" + rta_message[i].cabin.name + "</td>";
-        myTable+="<td class='container aut'> <button class='bacc' onclick='borrarMsg("+rta_message[i].idMessage+")'>Borrar</button>"
+        myTable+="<td class='container aut'> <button class='bacc' onclick='borrarMsg("+rta_message[i].id_message+")'>Borrar</button>"
         myTable += "</tr>";
     }
     myTable += "</table>";
@@ -624,9 +624,9 @@ function guardarMsg() {
     validarvacio($("#client_msg").val(), "Debe seleccionar un cliente");
     ConsultarMsg();
     let myData = {
-        messageText: $("#msg").val(),
+        message_text: $("#msg").val(),
         cabin: { id: $("#cabin_msg").val() },
-        client: { idClient: $("#client_msg").val() },
+        client: { id_client: $("#client_msg").val() },
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
@@ -683,7 +683,7 @@ function ConsultarMsgCabin(idElemento) {
             const listamsgs = MsgCabin1.messages;
             idsM = [];
             listamsgs.forEach(function (id) {
-                idsM.push(id.idMessage);
+                idsM.push(id.id_message);
             });
             console.log(idsM);
             $("#resultado").empty();
@@ -710,9 +710,9 @@ else{
     thead += "<thead>";
     myTableDM += thead;
     for (i = 0; i < MsgCabin1.messages.length; i++) {
-        ConsultarClientMsg(MsgCabin1.messages[i].idMessage, i);
+        ConsultarClientMsg(MsgCabin1.messages[i].id_message, i);
         myTableDM += "<tr  id='fila'>";
-        myTableDM += "<td align=center>" + MsgCabin1.messages[i].messageText + "</td>";
+        myTableDM += "<td align=center>" + MsgCabin1.messages[i].message_text + "</td>";
         myTableDM += "</tr>";
     }
     myTableDM += "</table>";
@@ -1092,21 +1092,21 @@ else{
     myTable += thead;
     for (i = 0; i < rta_reservation.length; i++) {
         myTable += "<tr id='filareserva'>";
-        var FI = new Date(rta_reservation[i].startDate).toISOString().slice(0, 10);
-        var FF = new Date(rta_reservation[i].devolutionDate).toISOString().slice(0, 10);
+        var FI = new Date(rta_reservation[i].start_date).toISOString().slice(0, 10);
+        var FF = new Date(rta_reservation[i].devolution_date).toISOString().slice(0, 10);
         myTable += "<td align=center>" + FI + "</td>";
         myTable += "<td align=center>" + FF + "</td>";
         myTable += "<td align=center>" + rta_reservation[i].client.name + "</td>";
         myTable += "<td align=center>" + rta_reservation[i].client.email + "</td>";
         myTable += "<td align=center>" + rta_reservation[i].cabin.name + "</td>";
         if (rta_reservation[i].score == null) {
-            myTable += "<td align=center> <button class='bacc2' onclick='CalificarReserva(" + rta_reservation[i].idReservation + ")'>Calificar Reserva</button>"+
-            "<button class='bacc2 container aut' onclick='BorrarReserva(" + rta_reservation[i].idReservation + ")'>Eliminar Reserva</button>"+
-            "<button class='bacc2 container aut' onclick='ModificarReserva(" + rta_reservation[i].idReservation + ")'>Modificar Reserva</button>";
+            myTable += "<td align=center> <button class='bacc2' onclick='CalificarReserva(" + rta_reservation[i].id_reservation + ")'>Calificar Reserva</button>"+
+            "<button class='bacc2 container aut' onclick='BorrarReserva(" + rta_reservation[i].id_reservation + ")'>Eliminar Reserva</button>"+
+            "<button class='bacc2 container aut' onclick='ModificarReserva(" + rta_reservation[i].id_reservation + ")'>Modificar Reserva</button>";
         } else {
             myTable += "<td align=center> <button class='bacc' onclick='MostrarScore(" + rta_reservation[i].score.id + ")'>Ver Calificación</button>"+
-            "<button class='bacc2 container aut' onclick='BorrarReserva(" + rta_reservation[i].idReservation + ")'>Eliminar Reserva</button>"+
-            "<button class='bacc2 container aut' onclick='ModificarReserva(" + rta_reservation[i].idReservation + ")'>Modificar Reserva</button>";
+            "<button class='bacc2 container aut' onclick='BorrarReserva(" + rta_reservation[i].id_reservation + ")'>Eliminar Reserva</button>"+
+            "<button class='bacc2 container aut' onclick='ModificarReserva(" + rta_reservation[i].id_reservation + ")'>Modificar Reserva</button>";
         }
         myTable += "</tr>";
     }
@@ -1156,12 +1156,12 @@ function ModificarReserva(idElemento){
         datatype: "JSON",
         success: function (respuestaid) {
             Reserva1 = respuestaid;
-            $("#idreserva").val(Reserva1.idReservation);
-            $("#FI").val(Reserva1.startDate);
-            $("#FF").val(Reserva1.devolutionDate);
+            $("#idreserva").val(Reserva1.id_reservation);
+            $("#FI").val(Reserva1.start_date);
+            $("#FF").val(Reserva1.devolution_date);
             $("#status").val(Reserva1.status).selected;
             $("#cabin_msg").val(Reserva1.cabin.id);
-            $("#client_msg").val(Reserva1.client.idClient);
+            $("#client_msg").val(Reserva1.client.id_client);
         }
     });  
 }
@@ -1172,10 +1172,10 @@ function guardarReserva() {
     validarvacio($("#FI").val(), "Por favor seleccione una fecha inicial para su reserva");
     validarvacio($("#FF").val(), "Por favor seleccione una fecha final para su reserva");
     let myData = {
-        startDate: $("#FI").val(),
-        devolutionDate: $("#FF").val(),
+        start_date: $("#FI").val(),
+        devolution_date: $("#FF").val(),
         cabin: { id: $("#cabin_msg").val() },
-        client: { idClient: $("#client_msg").val() },
+        client: { id_client: $("#client_msg").val() },
         status: "Programada",
     };
     let dataToSend = JSON.stringify(myData);
@@ -1204,12 +1204,12 @@ function EditarReserva() {
     var FI = new Date($("#FI").val()).toISOString().slice(0, 10);
     var FF = new Date($("#FF").val()).toISOString().slice(0, 10);
     let myData = {
-        idReservation: $("#idreserva").val(),
-        startDate: FI,
-        devolutionDate: FF,
+        id_reservation: $("#idreserva").val(),
+        start_date: FI,
+        devolution_date: FF,
         status: $("#status").val(),
         cabin: { id: $("#cabin_msg").val() },
-        client: { idClient: $("#client_msg").val() }, 
+        client: { id_client: $("#client_msg").val() }, 
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
@@ -1263,8 +1263,8 @@ function BorrarReserva(idElemento){
     });
 }
 
-function CalificarReserva(idReservation) {
-    $("#idreserva").val(idReservation);
+function CalificarReserva(id_reservation) {
+    $("#idreserva").val(id_reservation);
     $("#resultReserv").empty();
     document.getElementById("score").removeAttribute("hidden");
     document.getElementById("labscore").removeAttribute("hidden");
@@ -1281,7 +1281,7 @@ function GuardarScore() {
     let myData = {
         score: parseInt($("#scores").val()),
         mensajecalif: $("#msgscore").val(),
-        reservation: { idReservation: parseInt($("#idreserva").val()) },
+        reservation: { id_reservation: parseInt($("#idreserva").val()) },
     };
     let dataToSend = JSON.stringify(myData);
     console.log(dataToSend);
@@ -1317,7 +1317,7 @@ function MostrarScore(idScore) {
             const tabla = document.getElementById("tabla_reserva");
             var Score = document.createTextNode(Score1.score);
             var msgSc = document.createTextNode(Score1.mensajecalif);
-            var registro = parseInt(Score1.reservation.idReservation);
+            var registro = parseInt(Score1.reservation.id_reservation);
 
             if (tabla.rows[0].cells.length == 6) {
                 const tablahead = document.getElementById("tablareservas");
@@ -1344,7 +1344,7 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore("+Score1.reservation.idReservation+")";
+                botoneditar.onclick="ModifScore("+Score1.reservation.id_reservation+")";
                 botoneditar.className="bacc";
                 celda3.appendChild(botoneditar);
                 celda3.className = "container aut";
@@ -1368,7 +1368,7 @@ function MostrarScore(idScore) {
                 const botoneditar = document.createElement("button");
                 const textoboton=document.createTextNode("Modificar Calificación");
                 botoneditar.appendChild(textoboton);
-                botoneditar.onclick="ModifScore("+Score1.reservation.idReservation+")";
+                botoneditar.onclick="ModifScore("+Score1.reservation.id_reservation+")";
                 botoneditar.className="bacc";
                 newcell3.appendChild(botoneditar);
                 newcell3.className = "container aut";
@@ -1379,8 +1379,8 @@ function MostrarScore(idScore) {
     });
 }
 
-function ModifScore(idReservation){
-    $("#idreserva").val(idReservation);
+function ModifScore(id_reservation){
+    $("#idreserva").val(id_reservation);
     $("#resultReserv").empty();
     document.getElementById("score").removeAttribute("hidden");
     document.getElementById("labscore").removeAttribute("hidden");
@@ -1413,7 +1413,7 @@ function EditarScore() {
         id: $("#idscore").val(),
         score: parseInt($("#scores").val()),
         mensajecalif: $("#msgscore").val(),
-        reservation: { idReservation: parseInt($("#idreserva").val()) },
+        reservation: { id_reservation: parseInt($("#idreserva").val()) },
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({

@@ -25,10 +25,10 @@ public class ClientServices {
     
 
     public Cliente GuardarCliente(Cliente C){
-        if (C.getIdClient()==null){
+        if (C.getId_client()==null){
             return ClientRepository.GuardarCliente(C);
         }else{
-            Optional<Cliente> ClientX=ClientRepository.BuscarCliente(C.getIdClient());
+            Optional<Cliente> ClientX=ClientRepository.BuscarCliente(C.getId_client());
             if(!ClientX.isPresent()){
                 return ClientRepository.GuardarCliente(C);
             } else {
@@ -38,8 +38,8 @@ public class ClientServices {
     } 
     
     public Cliente ActualizarCliente(Cliente C){
-        if (C.getIdClient()!=null){
-            Optional<Cliente> ClienteX=ClientRepository.BuscarCliente(C.getIdClient());
+        if (C.getId_client()!=null){
+            Optional<Cliente> ClienteX=ClientRepository.BuscarCliente(C.getId_client());
             if (ClienteX.isPresent()){
                 if(C.getPassword()!=null && C.getName()!=null && C.getAge()!=null && C.getEmail()!=null){
                     ClienteX.get().setEmail(C.getEmail());
