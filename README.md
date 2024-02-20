@@ -19,7 +19,7 @@ Proyecto elaborado como reto de practica para el curso de Desarrollo Web, impart
     * Crear, consultar, modificar y eliminar los clientes
     * Crear, consultar, modificar y eliminar las reservas y mensajes relacionados con cada cabaña.
     
-  2. En caso de no iniciar sesion, el usario:
+  2. En caso de no iniciar sesion, el usuario:
     * No podrá crear nuevas cabañas, ni modificar o eliminar las existentes. Unicamente las puede consultar.
     * Sólamente podrá registrarse como cliente, más no eliminar o modificar datos de los clientes ya registrados.
     * Sólamente podrá crear nuevas reservas o comentarios, más no eliminar o modificar datos de los reservas o mensajes ya registrados.
